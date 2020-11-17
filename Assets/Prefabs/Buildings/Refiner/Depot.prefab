@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7911885531092065187}
   - component: {fileID: 7911885531092065186}
   - component: {fileID: 7911885531092065213}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Depot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputCapacity: 2
   inputResource: 0
-  outputResource: {fileID: 932622909819126483, guid: 75768f36812499d4e954658b95fd2176, type: 3}
+  outputResource: {fileID: 932622909819126483, guid: 8b978417a487a9140bc02a6c6d1189c6, type: 3}
   stockPile: 0
 --- !u!61 &7911885531092065213
 BoxCollider2D:
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7911885532123141074}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Output Location
   m_TagString: Untagged
   m_Icon: {fileID: 0}

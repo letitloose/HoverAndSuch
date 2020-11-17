@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Water
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -18,9 +19,9 @@ TagManager:
   - Background
   - Foreground
   - Player
-  - 
-  - 
-  - 
+  - Villager
+  - Depot
+  - Resource
   - 
   - 
   - 

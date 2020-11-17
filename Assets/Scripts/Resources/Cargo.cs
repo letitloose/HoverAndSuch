@@ -26,6 +26,10 @@ public class Cargo : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, transform.parent.position, step);
     }
 
+    public void ColliderEnabled(bool enabled)
+    {
+        GetComponent<BoxCollider2D>().enabled = enabled;
+    }
     
 }
 
@@ -34,5 +38,6 @@ public enum ResourceType
     food,
     water,
     villager,
-    stone
+    stone,
+    refinedStone
 }

@@ -8,6 +8,11 @@ public class Resource : MonoBehaviour
     [SerializeField] GameObject cargoPrefab = default;
     [SerializeField] Vector2 harvestOffset = new Vector2(1f, 1f);
 
+    public ResourceType GetResourceType()
+    {
+        return cargoPrefab.GetComponent<Cargo>().GetCargoResourceType();
+    }
+
     public GameObject HarvestCargo()
     {;
 

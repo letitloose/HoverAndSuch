@@ -10,17 +10,20 @@ public class Depot : MonoBehaviour
 
     [SerializeField] int stockPile;
 
-
     // Start is called before the first frame update
     void Start()
     {
         stockPile = 0;   
     }
 
-    // Update is called once per frame
-    void Update()
+    public ResourceType GetInputType()
     {
-        
+        return inputResource;
+    }
+
+    public ResourceType GetOutputType()
+    {
+        return outputResource.GetComponent<Cargo>().GetCargoResourceType();
     }
 
     void OnCollisionEnter2D(Collision2D otherCollider)
@@ -28,17 +31,23 @@ public class Depot : MonoBehaviour
         Cargo incomingCargo = (Cargo) otherCollider.gameObject.GetComponent("Cargo");
         if (incomingCargo)
         {
-            if (incomingCargo.GetCargoResourceType().Equals(inputResource))
+            DepositCargo(incomingCargo);
+        }
+    }
+
+    public void DepositCargo(Cargo incomingCargo)
+    {
+        incomingCargo.transform.parent = null;
+        if (incomingCargo.GetCargoResourceType().Equals(inputResource))
+        {
+            Destroy(incomingCargo.gameObject);
+            if (stockPile + 1 < inputCapacity)
             {
-                Destroy(otherCollider.gameObject);
-                if (stockPile + 1 < inputCapacity)
-                {
-                    stockPile++;
-                }
-                else
-                {
-                    Output();
-                }
+                stockPile++;
+            }
+            else
+            {
+                Output();
             }
         }
     }
@@ -46,7 +55,12 @@ public class Depot : MonoBehaviour
     private void Output()
     {
         stockPile = 0;
-        Transform outputLocation = transform.Find("Output Location");
+        Transform outputLocation = GetOutputLocation();
         GameObject outputCargo = Instantiate(outputResource, outputLocation.position, outputLocation.rotation);
+    }
+
+    public Transform GetOutputLocation()
+    {
+        return transform.Find("Output Location");
     }
 }

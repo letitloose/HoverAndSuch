@@ -16,45 +16,56 @@ public class MountPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetUpLine();
+
+    }
+
+    private void SetUpLine()
+    {
         mountLine = GetComponent<LineRenderer>();
-        if (!lineMaterial)
+        if (mountLine)
         {
-            lineMaterial = new Material(Shader.Find("Default/Line"));
+            if (!lineMaterial)
+            {
+                lineMaterial = new Material(Shader.Find("Default/Line"));
+            }
+            mountLine.material = lineMaterial;
+            mountLine.startWidth = lineWidth;
+            mountLine.startColor = lineColor;
+            mountLine.endColor = lineColor;
         }
-        mountLine.material = lineMaterial;
-        mountLine.startWidth = lineWidth;
-        mountLine.startColor = lineColor;
-        mountLine.endColor = lineColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
         DrawLineToClosestInteractable();
     }
 
-    bool HasCargo()
+    public bool HasCargo()
     {
         return transform.childCount > 0;
     }
 
     private void DrawLineToClosestInteractable()
     {
-        GameObject closestInteractable = GetClosestInteractable(); 
-        if (closestInteractable && !HasCargo())
+        if (mountLine)
         {
-            mountLine.positionCount = 2;
-            mountLine.SetPosition(0, transform.position);
-            mountLine.SetPosition(1, closestInteractable.transform.position);
-        }
-        else
-        {
-            mountLine.positionCount = 0;
+            GameObject closestInteractable = GetClosestInteractable();
+            if (closestInteractable && !HasCargo())
+            {
+                mountLine.positionCount = 2;
+                mountLine.SetPosition(0, transform.position);
+                mountLine.SetPosition(1, closestInteractable.transform.position);
+            }
+            else
+            {
+                mountLine.positionCount = 0;
+            }
         }
     }
 
-    private GameObject GetClosestInteractable()
+    public GameObject GetClosestInteractable()
     {
         float closestDistance = pickupDistance + 1;
         GameObject closestInteractable = null;
@@ -73,58 +84,34 @@ public class MountPoint : MonoBehaviour
         return closestInteractable;
     }
 
-    private void HandleInput()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-
-            if (HasCargo())
-            {
-                DropCargo();
-            }
-            else
-            {
-                GameObject interactable = GetClosestInteractable();
-                Debug.Log(interactable);
-
-                if (interactable)
-                {
-                    Cargo objectIsCargo = interactable.GetComponent<Cargo>();
-                    if (objectIsCargo)
-                    {
-                        PickupCargo(objectIsCargo);
-                    }
-                    Resource objectIsResource = interactable.GetComponent<Resource>();
-                    if (objectIsResource)
-                    {
-                        HarvestResource(objectIsResource);
-                    }
-                }
-            }
-        }
-    }
-
-    private void HarvestResource(Resource resource)
+    public void HarvestResource(Resource resource)
     {
         Cargo newCargo =  resource.HarvestCargo().GetComponent<Cargo>();
         PickupCargo(newCargo);
     }
 
-  
-    private void DropCargo()
+
+    public void DropCargo()
     {
         Transform cargo = transform.GetChild(0);
         cargo.position = transform.position;
         cargo.gameObject.GetComponent<Rigidbody2D>().velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
         cargo.parent = null;
+        cargo.gameObject.GetComponent<Cargo>().ColliderEnabled(true);
 
     }
 
-    private void PickupCargo(Cargo cargo)
+    public void PickupCargo(Cargo cargo)
     {
         if (cargo)
         {
             cargo.transform.SetParent(transform);
+            cargo.ColliderEnabled(false);
         }
+    }
+
+    public Cargo GetCargo()
+    {
+        return GetComponentInChildren<Cargo>();
     }
 }
