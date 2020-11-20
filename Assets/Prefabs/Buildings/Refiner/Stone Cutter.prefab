@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputCapacity: 2
-  inputResource: 3
+  inputResource: 4
   outputResource: {fileID: 932622909819126483, guid: 2d55486a8cb1cf5479efc55fb5e7ae65, type: 3}
   stockPile: 0
 --- !u!61 &7911885531092065213

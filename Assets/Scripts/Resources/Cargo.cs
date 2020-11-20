@@ -35,6 +35,7 @@ public class Cargo : MonoBehaviour
 
 public enum ResourceType
 {
+    none,
     food,
     water,
     villager,

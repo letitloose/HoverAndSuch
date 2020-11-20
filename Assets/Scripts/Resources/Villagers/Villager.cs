@@ -11,6 +11,9 @@ public class Villager : MonoBehaviour
     [SerializeField] float walkSpeed = 1f;
     [SerializeField] float interactionDelay = 1f;
 
+    [Header("Debug Only")]
+    [SerializeField] ResourceType resourceType;
+
     //references
     Animator animator;
     MountPoint hand;
@@ -18,7 +21,7 @@ public class Villager : MonoBehaviour
     //state variables
     float walkDirection;
     bool isWalking;
-    ResourceType resourceType;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -44,16 +47,36 @@ public class Villager : MonoBehaviour
         if (hand.HasCargo())
         {
             //walk towards Depot
-            closest = FindClosestDepot();
+            closest = FindClosestDropoff();
         }
         else
         {
             //walk torwards resource
-            closest = FindClosestResource();
+            closest = FindClosestPickup();
         }
 
         transform.localScale = new Vector2(Mathf.Sign(closest), transform.localScale.y);
         walkDirection = Mathf.Sign(closest);
+    }
+
+    private float FindClosestPickup()
+    {
+
+        float closest = FindClosestResource();
+
+        foreach (Depot depot in FindObjectsOfType<Depot>())
+        {
+            if (depot.GetOutputType() == resourceType)
+            {
+                if (Mathf.Abs(depot.transform.position.x - transform.position.x) < Mathf.Abs(closest))
+                {
+                    closest = depot.transform.position.x - transform.position.x;
+                }
+            }
+        }
+
+
+        return closest;
     }
 
     private float FindClosestResource()
@@ -61,16 +84,19 @@ public class Villager : MonoBehaviour
         float closest = 100f;
         foreach (Resource resource in FindObjectsOfType<Resource>())
         {
-            if (Mathf.Abs(resource.transform.position.x - transform.position.x) < Mathf.Abs(closest))
+            if (resource.GetResourceType() == resourceType)
             {
-                closest = resource.transform.position.x - transform.position.x;
+                if (Mathf.Abs(resource.transform.position.x - transform.position.x) < Mathf.Abs(closest))
+                {
+                    closest = resource.transform.position.x - transform.position.x;
+                }
             }
+                
         }
-
         return closest;
     }
 
-    private float FindClosestDepot()
+    private float FindClosestDropoff()
     {
         float closest = 100f;
         foreach (Depot depot in FindObjectsOfType<Depot>())
@@ -109,21 +135,21 @@ public class Villager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D otherCollider)
     {
-        if(otherCollider.gameObject.tag != "Ground")
+
+        if (otherCollider.gameObject.tag != "Ground")
         {
             if (otherCollider.gameObject.tag == "Interactable")
             {
-                Debug.Log("interactable");
                 ResourceInteraction(otherCollider.gameObject.GetComponent<Resource>());
                 CargoInteraction(otherCollider.gameObject.GetComponent<Cargo>());
             }
 
-            if (otherCollider.gameObject.layer == LayerMask.GetMask("Depot"))
-            {
 
+            Debug.Log(otherCollider.gameObject.layer + " " + LayerMask.NameToLayer("Depot"));
+            if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Depot"))
+            {
+                DepotInteraction(otherCollider.gameObject.GetComponent<Depot>());
             }
-            Depot depot = otherCollider.gameObject.GetComponent<Depot>();
-            DepotInteraction(otherCollider.gameObject.GetComponent<Depot>());
 
             ChooseWalkDirection();
         }
@@ -143,6 +169,7 @@ public class Villager : MonoBehaviour
             }
             else
             {
+                Debug.Log("setting resource type: " + depot.GetOutputType());
                 resourceType = depot.GetOutputType();
                 StopWalking();
                 transform.position = depot.GetOutputLocation().position;
@@ -161,8 +188,6 @@ public class Villager : MonoBehaviour
 
     private void ResourceInteraction(Resource resource)
     {
-
-        Debug.Log(resource);
         if (resource)
         {
             HarvestResource(resource);
