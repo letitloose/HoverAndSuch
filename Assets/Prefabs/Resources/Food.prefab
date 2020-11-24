@@ -124,6 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargoResourceType: 1
+  breakVelocityThreshold: 5
+  destroyParticlePrefab: {fileID: 0}
+  destroyChunks: {fileID: 3291441133546057043, guid: af75f911854e9b44aa2e5af2563181fd, type: 3}
 --- !u!50 &932622909819126494
 Rigidbody2D:
   serializedVersion: 4

@@ -144,8 +144,6 @@ public class Villager : MonoBehaviour
                 CargoInteraction(otherCollider.gameObject.GetComponent<Cargo>());
             }
 
-
-            Debug.Log(otherCollider.gameObject.layer + " " + LayerMask.NameToLayer("Depot"));
             if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Depot"))
             {
                 DepotInteraction(otherCollider.gameObject.GetComponent<Depot>());
