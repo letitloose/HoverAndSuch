@@ -45,7 +45,6 @@ public class Cargo : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
         if (collision.relativeVelocity.magnitude > breakVelocityThreshold)
         {
             ChunkCargo();
