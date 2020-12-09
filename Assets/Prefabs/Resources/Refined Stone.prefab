@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932622909819126481}
+  - component: {fileID: 4214896362166768031}
   - component: {fileID: 932622909819126495}
   - component: {fileID: 932622909819126480}
   - component: {fileID: 932622909819126492}
@@ -34,6 +35,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4214896362166768031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932622909819126483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a972efa2f777f6641ad84acd2ec927f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalPrefab: {fileID: 9154359165345025676, guid: 6a6d317721926294e883555720ae1276, type: 3}
+  spawnTriggerHeight: -2
+  spawnDelay: 2
+  yOffset: 2
 --- !u!114 &932622909819126495
 MonoBehaviour:
   m_ObjectHideFlags: 0
