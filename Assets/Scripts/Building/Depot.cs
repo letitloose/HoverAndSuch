@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,21 @@ public class Depot : MonoBehaviour
 
     [SerializeField] int stockPile;
 
+    public int GetInputCapacity()
+    {
+        return inputCapacity;
+    }
+
+    public int GetCurrentStockpile()
+    {
+        return stockPile;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        stockPile = 0;   
+        stockPile = 0;
     }
-
     public ResourceType GetInputType()
     {
         return inputResource;
@@ -50,6 +60,9 @@ public class Depot : MonoBehaviour
                 Output();
             }
         }
+
+        GetComponentInChildren<DepotUI>()?.UpdateDepotText();
+
     }
 
     private void Output()
