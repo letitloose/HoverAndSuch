@@ -53,6 +53,11 @@ public class ShipMovement : MonoBehaviour
     {
         dampenStrength = strength;
     }
+    
+    public void SetShipMass(float mass)
+    {
+        gameObject.GetComponent<Rigidbody2D>().mass = mass * 5;
+    }
 
     private bool ShipIsMoving()
     {
