@@ -37,6 +37,23 @@ public class ShipMovement : MonoBehaviour
         }
     }
 
+    public void SetAcceleration(float speedFactor)
+    {
+        horizontalSpeed = speedFactor * 1000;
+        verticalSpeed = horizontalSpeed / 2;
+    }
+
+    public void SetTopSpeed(float speedFactor)
+    {
+        maxXVelocity = speedFactor * 2;
+        maxYVelocity = speedFactor;
+    }
+
+    public void SetDampenStrength(float strength)
+    {
+        dampenStrength = strength;
+    }
+
     private bool ShipIsMoving()
     {
         if (shipRigidBody.velocity.magnitude > dampenThreshold)
