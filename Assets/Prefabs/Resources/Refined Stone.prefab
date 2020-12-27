@@ -64,9 +64,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cargoResourceType: 5
-  breakVelocityThreshold: 100
+  breakVelocityThreshold: 200
   destroyParticlePrefab: {fileID: 0}
   destroyChunks: {fileID: 3291441133546057043, guid: e1256aef9bdba574698517be5c44a0e0, type: 3}
+  isCarriable: 0
 --- !u!212 &932622909819126480
 SpriteRenderer:
   m_ObjectHideFlags: 0

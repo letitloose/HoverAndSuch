@@ -177,8 +177,11 @@ public class Villager : MonoBehaviour
     {
         if (cargo)
         {
-            PickUpCargo(cargo);
-            ResumeWalking();
+            if (cargo.GetIsCarriable())
+            {
+                PickUpCargo(cargo);
+                ResumeWalking();
+            }
         }
     }
 

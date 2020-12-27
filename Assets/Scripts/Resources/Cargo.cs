@@ -11,6 +11,7 @@ public class Cargo : MonoBehaviour
     [SerializeField] float breakVelocityThreshold = 5f;
     [SerializeField] ParticleSystem destroyParticlePrefab = default;
     [SerializeField] Chunks destroyChunks = default;
+    [SerializeField] bool isCarriable = true;
 
     //reference vars
     Rigidbody2D rigidBody;
@@ -25,6 +26,11 @@ public class Cargo : MonoBehaviour
         {
             MoveWithParent();
         }
+    }
+
+    public bool GetIsCarriable()
+    {
+        return isCarriable;
     }
 
     public ResourceType GetCargoResourceType()
@@ -47,8 +53,9 @@ public class Cargo : MonoBehaviour
     {
         if (collision.relativeVelocity.magnitude > breakVelocityThreshold)
         {
+            Debug.Log("loop: " + gameObject.name + " " + collision.relativeVelocity.magnitude + " " + breakVelocityThreshold);
             ChunkCargo();
-            DestroyCargo();
+            //DestroyCargo();
             Destroy(gameObject);
         }
     }
