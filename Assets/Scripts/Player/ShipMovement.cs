@@ -27,7 +27,6 @@ public class ShipMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         UpdateThrust();
         ClampVelocity();
        
@@ -76,11 +75,11 @@ public class ShipMovement : MonoBehaviour
     {
         float newX = shipRigidBody.velocity.x;
         float newY = shipRigidBody.velocity.y;
-        if(Input.GetAxis("Horizontal") == 0)
+        if(Input.GetAxisRaw("Horizontal") == 0)
         {
             newX *= dampenStrength;
         }
-        if(Input.GetAxis("Vertical") == 0)
+        if(Input.GetAxisRaw("Vertical") == 0)
         {
             newY *= dampenStrength;
         }

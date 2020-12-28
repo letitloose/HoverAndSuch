@@ -294,11 +294,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bca806263558e46a28f90127e24494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 5000
-  verticalSpeed: 2500
-  maxXVelocity: 10
-  maxYVelocity: 5
-  dampenStrength: 0.9
+  horizontalSpeed: 2000
+  verticalSpeed: 1000
+  maxXVelocity: 5
+  maxYVelocity: 2.5
+  dampenStrength: 0
   dampenThreshold: 0.2
 --- !u!114 &9078129879957998544
 MonoBehaviour:

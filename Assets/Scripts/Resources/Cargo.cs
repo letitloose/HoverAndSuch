@@ -47,6 +47,12 @@ public class Cargo : MonoBehaviour
     public void ColliderEnabled(bool enabled)
     {
         GetComponent<BoxCollider2D>().enabled = enabled;
+
+        PyramidSensor[] sensors = gameObject.GetComponentsInChildren<PyramidSensor>();
+        foreach(PyramidSensor sensor in sensors)
+        {
+            sensor.gameObject.GetComponent<BoxCollider2D>().enabled = enabled;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
